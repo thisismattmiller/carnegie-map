@@ -157,7 +157,7 @@ var Globe = function Globe(container, urls) {
           'varying vec3 vNormal;',
           'void main() {',
             'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 7.0 );',
-            'gl_FragColor = vec4( 0.7, 1.0, 0.7, 1.0 ) * intensity;',
+            'gl_FragColor = vec4( 1.0,  1.0,  1.0,  1.0 ) * intensity;',
           '}'
         ].join('\n'),
         side: THREE.BackSide,
@@ -256,8 +256,8 @@ var Globe = function Globe(container, urls) {
 
   var checkAltituteBoundries = function() {
     // max zoom
-    if(distanceTarget < 300)
-      distanceTarget = 300;
+    if(distanceTarget < 100)
+      distanceTarget = 100;
 
     // min zoom
     else if(distanceTarget > 900)
@@ -346,7 +346,7 @@ var Globe = function Globe(container, urls) {
       y: pos2d.y,
 
 
-      altitude: 200 - properties.size / 1.5,
+      altitude: 200 - properties.size *50 / 1.5,
       // speed at which block levitates outside
       // earth's core
       levitation: .1,
@@ -360,7 +360,8 @@ var Globe = function Globe(container, urls) {
     // rotate towards earth
     block.lookAt(earthPosition);
 
-    block.scale.z = properties.size;
+
+    block.scale.z = properties.size*50;
     block.scale.x = properties.size;
     block.scale.y = properties.size;
 
@@ -386,6 +387,8 @@ var Globe = function Globe(container, urls) {
 
     // rotate towards earth
     block.lookAt(earthPosition);
+
+
 
     block.scale.z = properties.size;
     block.scale.x = properties.size;
@@ -502,6 +505,7 @@ var Globe = function Globe(container, urls) {
    * @return {this}
    */
   api.addLevitatingBlock = function(data) {
+
     var block = createLevitatingBlock(data);
 
     scene.add(block);
